@@ -1,0 +1,6 @@
+--2023-09-18 14:52:29--  https://media.licdn.com/dms/image/C4E03AQF5pE7Fh4V5Cw/profile-displayphoto-shrink_800_800/0/1631898629016?e=2147483647
+Resolving media.licdn.com (media.licdn.com)... 152.199.24.163, 2606:2800:21f:fedd:8b7a:88ab:fc7e:fa3b
+Connecting to media.licdn.com (media.licdn.com)|152.199.24.163|:443... connected.
+HTTP request sent, awaiting response... 403 Forbidden
+2023-09-18 14:52:30 ERROR 403: Forbidden.
+

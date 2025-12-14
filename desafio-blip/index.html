@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classificador de Herói</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            max-width: 450px;
+            width: 100%;
+        }
+
+        h1 {
+            color: #fff;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            color: #e0e0e0;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        input[type="text"],
+        input[type="number"] {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        input[type="text"]:focus,
+        input[type="number"]:focus {
+            outline: none;
+            border-color: #e94560;
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #e94560 0%, #0f3460 100%);
+            border: none;
+            border-radius: 10px;
+            color: #fff;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(233, 69, 96, 0.4);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        #resultado {
+            margin-top: 30px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            text-align: center;
+            display: none;
+        }
+
+        #resultado.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        #resultado p {
+            color: #fff;
+            font-size: 1.2rem;
+            line-height: 1.6;
+        }
+
+        #resultado .nivel {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .nivel-ferro { background: #6b6b6b; }
+        .nivel-bronze { background: #cd7f32; }
+        .nivel-prata { background: #c0c0c0; color: #333; }
+        .nivel-ouro { background: #ffd700; color: #333; }
+        .nivel-platina { background: #00bcd4; }
+        .nivel-ascendente { background: #9c27b0; }
+        .nivel-imortal { background: #f44336; }
+        .nivel-radiante { background: linear-gradient(135deg, #ff6b6b, #feca57, #48dbfb, #ff9ff3); }
+
+        .emoji {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>⚔️ Classificador de Herói</h1>
+        
+        <div class="form-group">
+            <label for="nome">Nome do Herói:</label>
+            <input type="text" id="nome" placeholder="Digite o nome do herói" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="xp">Experiência (XP):</label>
+            <input type="number" id="xp" placeholder="Digite a quantidade de XP" min="0" required>
+        </div>
+        
+        <button onclick="classificar()">Classificar Herói</button>
+        
+        <div id="resultado">
+            <div class="emoji" id="emoji"></div>
+            <p id="mensagem"></p>
+        </div>
+    </div>
+
+    <script>
+        // Função para classificar o nível do herói
+        function classificarHeroi(xp) {
+            if (xp < 1000) {
+                return "Ferro";
+            } else if (xp >= 1001 && xp <= 2000) {
+                return "Bronze";
+            } else if (xp >= 2001 && xp <= 5000) {
+                return "Prata";
+            } else if (xp >= 5001 && xp <= 7000) {
+                return "Ouro";
+            } else if (xp >= 7001 && xp <= 8000) {
+                return "Platina";
+            } else if (xp >= 8001 && xp <= 9000) {
+                return "Ascendente";
+            } else if (xp >= 9001 && xp <= 10000) {
+                return "Imortal";
+            } else {
+                return "Radiante";
+            }
+        }
+
+        // Função para obter o emoji do nível
+        function getEmoji(nivel) {
+            const emojis = {
+                "Ferro": "🛡️",
+                "Bronze": "🥉",
+                "Prata": "🥈",
+                "Ouro": "🥇",
+                "Platina": "💎",
+                "Ascendente": "🚀",
+                "Imortal": "👑",
+                "Radiante": "✨"
+            };
+            return emojis[nivel] || "⚔️";
+        }
+
+        // Função principal para classificar
+        function classificar() {
+            const nome = document.getElementById('nome').value.trim();
+            const xp = parseInt(document.getElementById('xp').value);
+
+            if (!nome) {
+                alert('Por favor, digite o nome do herói!');
+                return;
+            }
+
+            if (isNaN(xp) || xp < 0) {
+                alert('Por favor, digite uma quantidade válida de XP!');
+                return;
+            }
+
+            const nivel = classificarHeroi(xp);
+            const emoji = getEmoji(nivel);
+
+            const resultadoDiv = document.getElementById('resultado');
+            const emojiDiv = document.getElementById('emoji');
+            const mensagemP = document.getElementById('mensagem');
+
+            emojiDiv.textContent = emoji;
+            mensagemP.innerHTML = `O Herói de nome <strong>${nome}</strong> está no nível de <span class="nivel nivel-${nivel.toLowerCase()}">${nivel}</span>`;
+
+            resultadoDiv.classList.add('show');
+        }
+
+        // Permitir pressionar Enter para classificar
+        document.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                classificar();
+            }
+        });
+    </script>
+</body>
+</html>
